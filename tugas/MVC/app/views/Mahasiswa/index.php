@@ -1,16 +1,42 @@
 <div class="container mt-4">
+
   <div class="row">
-    <div class="col-6">
-      <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#formModal">
+    <div class="col-lg-6">
+      <?php Flasher::flash(); ?>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <button type="button" class="btn btn-primary mb-4 tombolTambahData" data-bs-toggle="modal" data-bs-target="#formModal">
         Tambah Data Mahasiswa
       </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <form action="<?= BASEURL; ?>/mahasiswa/cari" method="post">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="cari mahasiswa.." aria-label="Recipient’s username" name="keyword" id="keyword" autocomplete="off">
+          <button class="btn btn-primary" type="submit" id="tombolCari">Cari</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+
       <h3>Daftar Mahasiswa</h3>
 
       <ul class="list-group">
         <?php foreach ($data['mhs'] as $mhs) :  ?>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
+          <li class="list-group-item ">
             <?= $mhs['nama'];  ?>
-            <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id']; ?>" class="badge rounded-pill text-bg-primary">detail</a>
+            <a href="<?= BASEURL; ?>/mahasiswa/hapus/<?= $mhs['id']; ?>" class="badge rounded-pill text-bg-danger float-end ms-2" onclick="return confirm('Apakah anda yakin ingin mengahpus Nama ini?');">hapus</a>
+            <a href="<?= BASEURL; ?>/mahasiswa/ubah/<?= $mhs['id']; ?>" class="badge rounded-pill text-bg-warning float-end ms-2 tampilModalUbah" data-bs-toggle="modal" data-bs-target="#formModal" data-id="<?= $mhs['id'] ?>">ubah</a>
+            <a href="<?= BASEURL; ?>/mahasiswa/detail/<?= $mhs['id']; ?>" class="badge rounded-pill text-bg-primary float-end ms-2">detail</a>
           </li>
         <?php endforeach; ?>
       </ul>
@@ -21,15 +47,16 @@
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="judulModal" aria-hidden="true">
+<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="judulModal">Tambah Data Mahasiswa</h1>
+        <h1 class="modal-title fs-5" id="formModalLabel">Tambah Data Mahasiswa</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="<?= BASEURL; ?>/mahasiswa/tambah" method="post">
+          <input type="hidden" name="id" id="id">
           <div class="mb-3">
             <label for="nama" class="form-label">Nama</label>
             <input type="text" class="form-control" id="nama" name="nama">
@@ -48,8 +75,8 @@
           <div class="mb-3">
             <label for="jurusan">Jurusan</label>
             <select class="form-select mt-2" aria-label=" Default select example" id="jurusan" name="jurusan">
-              <option value="Teknik Informartika">Teknik Informatika</option>
-              <option value="Teknik Indutri">Teknik Industri</option>
+              <option value="Teknik Informatika">Teknik Informatika</option>
+              <option value="Teknik Industri">Teknik Industri</option>
               <option value="Teknologi Pangan">Teknologi Pangan</option>
               <option value="Teknik Lingkungan">Teknik Lingkungan</option>
             </select>
