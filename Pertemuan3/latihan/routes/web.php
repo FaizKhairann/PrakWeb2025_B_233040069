@@ -4,10 +4,11 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
-//contoh route untuk menampilkan route
+// Route Home
 Route::get('/', function () {
     return view('home');
 });
+
 
 Route::get('/blog', function () {
     return view('blog');
@@ -21,6 +22,8 @@ Route::get('/about', function () {
     return view('about');
 });
 
-//Route untuk memanggil method di PostController
-Route::get('post', [PostController::class, 'index']);
+
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+
+// Route Categories
 Route::get('/categories', [CategoryController::class, 'index']);
