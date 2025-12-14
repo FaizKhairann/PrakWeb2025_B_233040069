@@ -12,6 +12,11 @@ class Category extends Model
 
     protected $guarded = ['id'];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function post(): HasMany
     {
         return $this->hasMany(Post::class, 'category_id');
